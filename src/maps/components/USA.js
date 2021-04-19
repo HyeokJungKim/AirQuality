@@ -25,22 +25,45 @@ class USA extends React.Component{
         let path = d3.geoPath()
             .projection(projection)
 
-            g.selectAll("path")
-                .data(geoJSON.features)
-                .enter()
-                .append("path")
-                .attr("d", path)
-                .attr("class", this.slugName)
-                .style("fill", "none")
-                .style("stroke", "black")
+        g.selectAll("path")
+            .data(geoJSON.features)
+            .enter()
+            .append("path")
+            .attr("d", path)
+            .attr("class", "state")
+            .style("fill-opacity", 0)
+            .style("stroke", "black")
+            
+        g.on("click", (e) => {
+            this.handleClickOnState(e, projection)
+        })
+
+        g.on("mouseover", (e) => {
+            this.handleHoverOnState(e, projection, svg, path)
+        })
+
+        g.on("mouseout" , (e) => {
+           
+        })
+
 
     }
 
-    slugName(d){
-        let slug = d.properties.NAME.toLowerCase()
-        .replace(/[^\w ]+/g,'')
-        .replace(/ +/g,'_')
-        return `state-${slug}`
+    handleClickOnState(e, projection){
+        let stateName = e.target.__data__.properties.NAME
+        let [lng, lat] = projection.invert(d3.pointer(e))
+    }
+
+    handleHoverOnState(e, projection, svg, path){
+        let stateName = e.target.__data__.properties.NAME
+        svg.append("text")
+            .attr("transform", function(d){
+                let mapCenter = path.centroid(e.target.__data__.geometry)
+                return `translate(${mapCenter})`
+            })
+            .text(stateName)
+
+        console.log(stateName);
     }
 
     render(){

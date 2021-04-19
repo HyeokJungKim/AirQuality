@@ -1,3 +1,4 @@
+// https://eric.clst.org/tech/usgeojson/
 let geoJSON = {
     "type": "FeatureCollection",
     "features": [
