@@ -1,6 +1,7 @@
 import * as d3 from "d3";
 import React from "react";
-import geoJSON from '../geojson'
+import geoJSON from './geojson'
+import {getCityData} from '../../adapters/airquality'
 
 class USA extends React.Component{
     
@@ -25,6 +26,12 @@ class USA extends React.Component{
         let path = d3.geoPath()
             .projection(projection)
 
+        let div = svg.append("text")
+            .attr("id", "marker")
+            .style("opacity", 0)
+            .style("position", "absolute")
+            .style("z-index", -10)
+
         g.selectAll("path")
             .data(geoJSON.features)
             .enter()
@@ -33,37 +40,44 @@ class USA extends React.Component{
             .attr("class", "state")
             .style("fill-opacity", 0)
             .style("stroke", "black")
-            
-        g.on("click", (e) => {
-            this.handleClickOnState(e, projection)
-        })
+            .on("click", (e) => {
+                this.handleClickOnState(e, projection)
+            })
+            .on("mouseover", (e) => { 
+                this.handleHoverOnState(e, div, path)
+             })  
 
-        g.on("mouseover", (e) => {
-            this.handleHoverOnState(e, projection, svg, path)
+        d3.select("#USA").on("mouseout", (e) => {
+            div.transition()
+                .duration(2000)	
+                .text("")
+                .style("opacity", 0)
         })
-
-        g.on("mouseout" , (e) => {
-           
-        })
-
 
     }
 
     handleClickOnState(e, projection){
-        let stateName = e.target.__data__.properties.NAME
         let [lng, lat] = projection.invert(d3.pointer(e))
+
+        // getCityData(lat, lng)
+            // .then(console.log)
     }
 
-    handleHoverOnState(e, projection, svg, path){
+
+
+    handleHoverOnState(e, div, path){
+        // DEBUG: Hovering over text gets glitchy
         let stateName = e.target.__data__.properties.NAME
-        svg.append("text")
+
+        div.transition()
+            .duration(200)
             .attr("transform", function(d){
                 let mapCenter = path.centroid(e.target.__data__.geometry)
                 return `translate(${mapCenter})`
             })
+            .style("opacity", 0.9)
             .text(stateName)
 
-        console.log(stateName);
     }
 
     render(){
