@@ -12,7 +12,7 @@ function App() {
   return (
     <div className="App">
       <h1>Air Quality</h1>
-      <USA />
+      <USA setCityData={setCityData}/>
       <CityWeather cityData={cityData} />
     </div>
   );
