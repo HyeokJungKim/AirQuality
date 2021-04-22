@@ -26,11 +26,9 @@ class USA extends React.Component{
         let path = d3.geoPath()
             .projection(projection)
 
-        let div = svg.append("text")
+        let marker = svg.append("text")
             .attr("id", "marker")
             .style("opacity", 0)
-            .style("position", "absolute")
-            .style("z-index", -10)
 
         g.selectAll("path")
             .data(geoJSON.features)
@@ -43,16 +41,20 @@ class USA extends React.Component{
             .on("click", (e) => {
                 this.handleClickOnState(e, projection)
             })
-            .on("mouseover", (e) => { 
-                this.handleHoverOnState(e, div, path)
-             })  
-
-        d3.select("#USA").on("mouseout", (e) => {
-            div.transition()
-                .duration(2000)	
-                .text("")
-                .style("opacity", 0)
-        })
+            
+            svg.on("mouseover", (e) => { 
+                if(e.target.tagName === "path"){
+                    this.handleHoverOnState(e, marker, path)
+                } 
+            })  
+            .on("mouseout", (e) => {
+                if(!e.relatedTarget ||  e.relatedTarget.tagName !== "text"  ){
+                    marker.transition()
+                        .duration(500)	
+                        .text("")
+                        .style("opacity", 0)
+                }
+            })
 
     }
 
@@ -67,11 +69,11 @@ class USA extends React.Component{
 
 
 
-    handleHoverOnState(e, div, path){
-        // DEBUG: Hovering over text gets glitchy
+    handleHoverOnState(e, marker, path){
+
         let stateName = e.target.__data__.properties.NAME
 
-        div.transition()
+        marker.transition()
             .duration(200)
             .attr("transform", function(d){
                 let mapCenter = path.centroid(e.target.__data__.geometry)
