@@ -18,47 +18,52 @@ class WindDirection extends React.Component{
             .append("svg")
             .attr("viewBox", `0 0 ${this.w} ${this.h}`)
 
-        let arrowPoints = [
-            [0, 0],
-            [0, 20],
-            [20, 10]
-        ]
-
-        this.svg.append("circle")
+            
+            this.svg.append("circle")
             .attr("cx", this.w/2)
             .attr("cy", this.h/2)
             .attr("fill-opacity", 0.1)
             .attr("r", this.r)
             
-        this.svg.append("text")
+            this.svg.append("text")
             .attr("x", this.w/2)
             .attr("y", padding)
             .attr("text-anchor", "middle")
             .attr("dominant-baseline", "central") 
+            .attr("class", "direction")
             .text("N")
-
-        this.svg.append("text")
+            
+            this.svg.append("text")
             .attr("x", this.w - padding)
             .attr("y", this.h /2)
             .attr("text-anchor", "middle")
-            .attr("dominant-baseline", "central") 
+            .attr("dominant-baseline", "central")
+            .attr("class", "direction")
             .text("E")
-
-        this.svg.append("text")
+            
+            this.svg.append("text")
             .attr("x", this.w / 2)
             .attr("y", this.h - padding)
             .attr("text-anchor", "middle")
-            .attr("dominant-baseline", "central") 
+            .attr("dominant-baseline", "central")
+            .attr("class", "direction")
             .text("S")
-
-        this.svg.append("text")
+            
+            this.svg.append("text")
             .attr("x", padding)
             .attr("y", this.h /2)
             .attr("text-anchor", "middle")
-            .attr("dominant-baseline", "central") 
+            .attr("dominant-baseline", "central")
+            .attr("class", "direction")
             .text("W")
-
-        this.arrowHead = this.svg.append("svg:defs")
+            
+            let arrowPoints = [
+                [0, 0],
+                [0, 20],
+                [20, 10]
+            ]
+            
+            this.arrowHead = this.svg.append("svg:defs")
             .append("marker")
             .attr("id", "arrow")
             .attr("markersUnit", "strokeWidth")
@@ -101,7 +106,7 @@ class WindDirection extends React.Component{
 
     render(){
         return(
-            <div id="windDirection">    
+            <div id="windDirection">        
             </div>
         )
     }

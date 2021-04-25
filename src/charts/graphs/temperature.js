@@ -39,17 +39,31 @@ class Temperature extends React.Component{
                         
         this.tempBar = chart.append("rect")
             .attr("x", 0)
-            .attr("y", () => this.yScale("Temperature") - 10)
+            .attr("y", this.yScale("Temperature") - 10)
+            .attr("opacity", 0.7)
             .attr("height", 20)
             .attr("width", 0)
 
+        let degreeF = '\xB0F'
+        this.tempLabel = chart.append('text')
+            .attr("x", 2)
+            .attr("y", this.yScale("Temperature"))
+            .attr("dominant-baseline", "central") 
+            .text(`${this.props.temperature}${degreeF}`)
 
         this.humidBar = chart.append("rect")
             .attr("x", 0)
-            .attr("y", () => this.yScale("Humidity") - 10)
+            .attr("y", this.yScale("Humidity") - 10)
+            .attr("opacity", 0.7)
             .attr("height", 20)
             .attr("width", 0)
         
+        this.humidLabel = chart.append('text')
+            .attr("x", 2)
+            .attr("y", this.yScale("Humidity"))
+            .attr("dominant-baseline", "central") 
+            .text(`${this.props.humidity} %`)
+
         this.animateBars()
     }
 
@@ -57,12 +71,25 @@ class Temperature extends React.Component{
         this.tempBar.transition()
             .duration(1500)
             .ease(d3.easeQuadOut)
-            .attr("width", () => this.xScale(this.props.temperature))
+            .attr("width", this.xScale(this.props.temperature))
 
         this.humidBar.transition()
             .duration(1500)
             .ease(d3.easeQuadOut)
-            .attr("width", () => this.xScale(this.props.humidity))
+            .attr("width", this.xScale(this.props.humidity))
+        
+        let degreeF = '\xB0F'
+        this.tempLabel.transition()
+            .duration(1500)
+            .ease(d3.easeQuadOut)
+            .attr("x", this.xScale(this.props.temperature) + 2)
+            .text(`${this.props.temperature}${degreeF}`)
+
+        this.humidLabel.transition()
+            .duration(1500)
+            .ease(d3.easeQuadOut)
+            .attr("x", this.xScale(this.props.humidity) + 2)
+            .text(`${this.props.humidity} %`)
 
     }
 

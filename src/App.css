@@ -1,5 +1,5 @@
 .App {
-  padding: 4rem;
+  padding: 2rem;
 }
 
 main {
@@ -9,12 +9,12 @@ main {
 }
 
 #USA {
-  width: 70%;
+  width: 65%;
   text-align: center;
 }
 
 #city {
-  width: 30%;
+  width: 35%;
   text-align: center;
 
 }
@@ -31,20 +31,61 @@ svg .state:hover, svg #marker:hover {
 
 svg #marker {
   font-family: Georgia, 'Times New Roman', Times, serif;
-  font-weight: bold;
-  font-size: large;
+  font-weight: bolder;
+  text-shadow: 0 1px 0 black;
+  font-size: 1rem;
   position: fixed;
   z-index: -1;
 }
 
 
 /* CARD */
+#city {
+  color: #1B1725;
+}
 
 #city img.icon {
-  height: 5rem;
+  height: 10rem;;
   width: auto;
 }
 
-#city {
-  border: 1px red solid;
+#city .name{
+  font-weight: bolder;
+  font-size: xx-large;
 }
+
+#city .temp{
+  font-size: 4rem;
+  margin: 0;
+  font-family: Droid Serif;
+}
+
+#city p{
+  margin:0;
+}
+
+#city .graphs{
+  display: flex;
+  width: 100%;
+}
+
+#windDirection{
+  width: 25%;
+  margin: auto;
+}
+
+text.direction {
+  font-family: Baskerville,Baskerville Old Face,Hoefler Text,Garamond,Times New Roman,serif; 
+  font-weight: bold;
+  font-size: large;
+}
+
+#temperature{
+  width: 75%;
+  text-align: center;
+}
+
+g.tick text{
+  font-weight: bold;
+  font-size: 0.65rem;
+} 

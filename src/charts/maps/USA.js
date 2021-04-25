@@ -11,7 +11,7 @@ class USA extends React.Component{
 
     renderMap(){
         let w = 750
-        let h = 750
+        let h = 500
 
         let svg = d3.select("#USA").append("svg")
             .attr("viewBox", `0 0 ${w} ${h}`)
@@ -35,8 +35,8 @@ class USA extends React.Component{
             .append("path")
             .attr("d", path)
             .attr("class", "state")
-            .style("fill-opacity", 0)
-            .style("stroke", "black")
+            .style("fill-opacity", 0.1)
+            .style("stroke", "#534B62")
             .on("click", (e) => {
                 this.handleClickOnState(e, projection)
             })
@@ -64,6 +64,8 @@ class USA extends React.Component{
         //     .then(city => {
         //         this.props.setCityData(city.data)
         //     })
+
+        
     }
 
 
