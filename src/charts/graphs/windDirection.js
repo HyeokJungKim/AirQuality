@@ -10,17 +10,53 @@ class WindDirection extends React.Component{
 
         this.w = 100
         this.h = 100
+        this.r = 50
+
+        let padding = 15
 
         this.svg = d3.select("#windDirection")
             .append("svg")
-            .attr("width", this.w)
-            .attr("height", this.h)
+            .attr("viewBox", `0 0 ${this.w} ${this.h}`)
 
         let arrowPoints = [
             [0, 0],
             [0, 20],
             [20, 10]
         ]
+
+        this.svg.append("circle")
+            .attr("cx", this.w/2)
+            .attr("cy", this.h/2)
+            .attr("fill-opacity", 0.1)
+            .attr("r", this.r)
+            
+        this.svg.append("text")
+            .attr("x", this.w/2)
+            .attr("y", padding)
+            .attr("text-anchor", "middle")
+            .attr("dominant-baseline", "central") 
+            .text("N")
+
+        this.svg.append("text")
+            .attr("x", this.w - padding)
+            .attr("y", this.h /2)
+            .attr("text-anchor", "middle")
+            .attr("dominant-baseline", "central") 
+            .text("E")
+
+        this.svg.append("text")
+            .attr("x", this.w / 2)
+            .attr("y", this.h - padding)
+            .attr("text-anchor", "middle")
+            .attr("dominant-baseline", "central") 
+            .text("S")
+
+        this.svg.append("text")
+            .attr("x", padding)
+            .attr("y", this.h /2)
+            .attr("text-anchor", "middle")
+            .attr("dominant-baseline", "central") 
+            .text("W")
 
         this.arrowHead = this.svg.append("svg:defs")
             .append("marker")
@@ -42,9 +78,8 @@ class WindDirection extends React.Component{
             .attr("x2", this.w/2)
             .attr("y2", 10)
             .attr("stroke", "red")
-            .attr("stroke-width", 2)
+            .attr("stroke-width", 4)
             .attr("marker-end", `url(#arrow)`)
-
 
         this.animateCompassDirection()
     }

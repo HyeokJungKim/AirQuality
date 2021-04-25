@@ -12,14 +12,16 @@ function CityWeather({cityData}){
     let formattedDate = `${month}/${day}/${year}`
 
     let fahrenheit = weather.tp * 1.8 + 32
-    console.log(fahrenheit);
+
     return(
-        <div>
-            {cityData.city}
+        <div id="city">
+            <p>{cityData.city}, {cityData.state}</p>
+            <p>As of {date.toLocaleTimeString("en-US")}</p>
+            <img src={`https://www.airvisual.com/images/${weather.ic}.png`} alt={weather.ic} className="icon" />
+            <p>{formattedDate}</p>
+            <p>{fahrenheit}</p>
             <WindDirection direction={weather.wd} />
-            <Temperature temperature={90} humidity={weather.hu}/>
-            <p>Weather for {formattedDate}</p>
-            <img src={`https://www.airvisual.com/images/${weather.ic}.png`} alt={weather.ic} />
+            <Temperature temperature={fahrenheit} humidity={weather.hu}/>
         </div>
     )
 }

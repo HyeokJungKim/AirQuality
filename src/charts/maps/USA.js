@@ -14,8 +14,7 @@ class USA extends React.Component{
         let h = 750
 
         let svg = d3.select("#USA").append("svg")
-            .attr("width", w)
-            .attr("height", h)
+            .attr("viewBox", `0 0 ${w} ${h}`)
 
         let g = svg.append("g")
 
@@ -26,7 +25,7 @@ class USA extends React.Component{
         let path = d3.geoPath()
             .projection(projection)
 
-        let marker = svg.append("text")
+        let marker = g.append("text")
             .attr("id", "marker")
             .style("opacity", 0)
 
@@ -77,6 +76,7 @@ class USA extends React.Component{
             .duration(200)
             .attr("transform", function(d){
                 let mapCenter = path.centroid(e.target.__data__.geometry)
+                mapCenter[0] -= 25
                 return `translate(${mapCenter})`
             })
             .style("opacity", 0.9)

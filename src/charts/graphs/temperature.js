@@ -16,8 +16,7 @@ class Temperature extends React.Component{
 
         let svg = d3.select("#temperature")
             .append("svg")
-            .attr("width", w)
-            .attr("height", h)
+            .attr("viewBox", `0 0 ${w} ${h}`)
         
         let chart = svg.append("g")
             .attr("transform", `translate(${margin}, ${margin})`)
