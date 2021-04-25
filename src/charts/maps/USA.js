@@ -29,6 +29,15 @@ class USA extends React.Component{
             .attr("id", "marker")
             .style("opacity", 0)
 
+        let starData = d3.symbol()
+            .type(d3.symbolStar)
+            .size(50)
+
+        this.star = g.append("path")
+            .attr("d", starData)
+            .attr("id", "star")
+            .attr("opacity", 0)
+
         g.selectAll("path")
             .data(geoJSON.features)
             .enter()
@@ -58,14 +67,18 @@ class USA extends React.Component{
     }
 
     handleClickOnState(e, projection){
+        let [x,y] = d3.pointer(e)
         let [lng, lat] = projection.invert(d3.pointer(e))
 
+        this.star
+            .attr("transform", `translate(${x}, ${y})`)
+            .attr("opacity", 0.9)
         // getCityData(lat, lng)
         //     .then(city => {
         //         this.props.setCityData(city.data)
         //     })
 
-        
+
     }
 
 
