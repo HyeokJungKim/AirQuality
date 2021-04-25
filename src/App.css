@@ -99,9 +99,16 @@ g.tick text{
 } 
 
 
+/* Line Graph */
+
+#forecast {
+  width: 80%;
+  text-align: center;
+}
+
 @media only screen and (max-width: 600px) {
 
-  main {
+  article {
     flex-direction: column;
   }
   

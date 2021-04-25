@@ -5,7 +5,9 @@ import temperatureArr from "./data/forecast"
 
 import USA from "./components/maps/USA"
 import CityWeather from "./components/graphs/cityWeather"
-import HistoricalData from "./components/graphs/historicalData"
+import Forecast from "./components/graphs/forecast"
+import JSONDisplay from "./components/display/json-display"
+
 
 
 function App() {
@@ -22,7 +24,8 @@ function App() {
       </article>
 
       <article id="bottom">
-        <HistoricalData temperatures={temperatures} />  
+        <Forecast temperatures={temperatures} />  
+        <JSONDisplay temperatures={temperatures} />
       </article>
     </main>
   );

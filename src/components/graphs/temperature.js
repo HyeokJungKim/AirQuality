@@ -22,7 +22,7 @@ class Temperature extends React.Component{
             .attr("transform", `translate(${margin}, ${margin})`)
         
         this.yScale = d3.scalePoint()
-            .range([0, height])
+            .range([height, 0])
             .domain(["Humidity", "Temperature"])
             .padding(0.5)
             

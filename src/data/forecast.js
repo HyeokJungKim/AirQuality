@@ -881,8 +881,16 @@ let query = {
 }
 
 let forecastArr = query.days.map(({datetimeEpoch, tempmax, tempmin, temp}) => {
+    let date = new Date(0)
+    date.setUTCSeconds(datetimeEpoch)
+
+    let month = date.getUTCMonth() + 1
+    let day = date.getUTCDate()
+
+    let formattedDate = `${month}/${day}`
+
     return {
-        datetimeEpoch,
+        date: formattedDate,
         tempmax,
         tempmin,
         temp
