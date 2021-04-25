@@ -2,11 +2,8 @@
   padding: 2rem;
 }
 
-body{
-  background-color: cornsilk;
-}
 
-main {
+article {
   display: flex;
   width: 100%;
   align-items: center;
@@ -46,6 +43,10 @@ svg #marker {
 /* CARD */
 #city {
   color: #1B1725;
+  border-radius: 10%;
+  box-shadow: 5px 5px 30px 7px rgba(0,0,0,0.25);
+  height: 75vh;
+  padding: 2rem;
 }
 
 #city img.icon {
@@ -56,7 +57,7 @@ svg #marker {
 #city .name{
   font-weight: bolder;
   font-family: Baskerville,Baskerville Old Face,Hoefler Text,Garamond,Times New Roman,serif; 
-  font-size: 2rem;  
+  font-size: 2.5rem;  
   margin: 0;
 }
 
@@ -68,6 +69,7 @@ svg #marker {
 
 #city p{
   margin:0;
+  font-weight: bold;
 }
 
 #city .graphs{

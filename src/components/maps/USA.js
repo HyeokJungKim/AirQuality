@@ -1,7 +1,7 @@
 import * as d3 from "d3";
 import React from "react";
 import geoJSON from '../../assets/geojson'
-import {getCityData} from '../../adapters/airquality'
+import {getCityDataAQ} from '../../adapters/server'
 
 class USA extends React.Component{
     
@@ -70,15 +70,15 @@ class USA extends React.Component{
         let [x,y] = d3.pointer(e)
         let [lng, lat] = projection.invert(d3.pointer(e))
 
-        
-        getCityData(lat, lng)
-        .then(city => {
-                this.star
-                    .attr("transform", `translate(${x}, ${y})`)
-                    .attr("opacity", 0.9)
-                this.props.setCityData(city.data)
-            })
-            .catch(console.error)
+        console.log(lng, lat)
+        // getCityDataAQ(lat, lng)
+        // .then(city => {
+        //         this.star
+        //             .attr("transform", `translate(${x}, ${y})`)
+        //             .attr("opacity", 0.9)
+        //         this.props.setCityData(city.data)
+        //     })
+        //     .catch(console.error)
 
 
     }
