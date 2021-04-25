@@ -11,6 +11,7 @@ function App() {
 
   return (
     <div className="App">
+      <h1>USA Weather</h1>
       <main>
         <USA setCityData={setCityData}/>
         <CityWeather cityData={cityData} />

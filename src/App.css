@@ -2,6 +2,10 @@
   padding: 2rem;
 }
 
+body{
+  background-color: cornsilk;
+}
+
 main {
   display: flex;
   width: 100%;
@@ -45,13 +49,15 @@ svg #marker {
 }
 
 #city img.icon {
-  height: 10rem;;
+  height: 7rem;;
   width: auto;
 }
 
 #city .name{
   font-weight: bolder;
-  font-size: xx-large;
+  font-family: Baskerville,Baskerville Old Face,Hoefler Text,Garamond,Times New Roman,serif; 
+  font-size: 2rem;  
+  margin: 0;
 }
 
 #city .temp{
@@ -89,3 +95,12 @@ g.tick text{
   font-weight: bold;
   font-size: 0.65rem;
 } 
+
+
+@media only screen and (max-width: 600px) {
+
+  main {
+    flex-direction: column;
+  }
+  
+}

@@ -18,13 +18,16 @@ class WindDirection extends React.Component{
             .append("svg")
             .attr("viewBox", `0 0 ${this.w} ${this.h}`)
 
+        this.windScale = d3.scaleSqrt()
+            .domain([0, 15])
+            .range([0, 40])
             
         this.svg.append("circle")
             .attr("cx", this.w/2)
             .attr("cy", this.h/2)
             .attr("fill-opacity", 0.1)
             .attr("r", this.r)
-            
+
         this.svg.append("text")
             .attr("x", this.w/2)
             .attr("y", padding)
@@ -81,7 +84,7 @@ class WindDirection extends React.Component{
             .attr("x1", this.w/2)
             .attr("y1", this.h/2)
             .attr("x2", this.w/2)
-            .attr("y2", 10)
+            .attr("y2", this.h/2 - this.windScale(this.props.speed))
             .attr("stroke", "red")
             .attr("stroke-width", 4)
             .attr("marker-end", `url(#arrow)`)
@@ -94,6 +97,7 @@ class WindDirection extends React.Component{
         this.line.transition()
           .duration(1500)
             .ease(d3.easeQuadOut)
+            .attr("y2", this.h/2 - this.windScale(this.props.speed))
             .attr("transform", `rotate(${this.props.direction}, ${this.w/2}, ${this.h/2})`)
         
     }
@@ -106,7 +110,10 @@ class WindDirection extends React.Component{
 
     render(){
         return(
-            <div id="windDirection">        
+            <div id="windDirection">    
+                <p>
+                    {this.props.speed} MPH
+                </p>      
             </div>
         )
     }

@@ -70,13 +70,15 @@ class USA extends React.Component{
         let [x,y] = d3.pointer(e)
         let [lng, lat] = projection.invert(d3.pointer(e))
 
-        this.star
-            .attr("transform", `translate(${x}, ${y})`)
-            .attr("opacity", 0.9)
-        // getCityData(lat, lng)
-        //     .then(city => {
-        //         this.props.setCityData(city.data)
-        //     })
+        
+        getCityData(lat, lng)
+        .then(city => {
+                this.star
+                    .attr("transform", `translate(${x}, ${y})`)
+                    .attr("opacity", 0.9)
+                this.props.setCityData(city.data)
+            })
+            .catch(console.error)
 
 
     }
