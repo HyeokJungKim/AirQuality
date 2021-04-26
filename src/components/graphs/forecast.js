@@ -4,8 +4,8 @@ import * as d3 from "d3"
 class Forecast extends React.Component{
 
     state = {
-        chosen: "tempmin",
-        color: "red"
+        chosen: "temp",
+        color: "green"
     }
     
     componentDidMount(){
@@ -21,19 +21,36 @@ class Forecast extends React.Component{
         let svg = d3.select("#forecast").append("svg")
             .attr("viewBox", `0 0 ${this.w} ${this.h}`)
 
-        let chart = svg.append("g")
-            .attr("transform", `translate(${this.margin}, ${this.margin})`)
-
         this.graph = svg.append("g")
             .attr("transform", `translate(${this.margin}, ${this.margin})`)
    
-        this.xAxis = chart.append("g")
+        this.xAxis = this.graph.append("g")
             .attr("transform", `translate(0, ${this.height})`)
-        this.yAxis = chart.append("g")
+        this.yAxis = this.graph.append("g")
 
-        this.xBar = chart.append("g")
-        this.yBar = chart.append("g")
-        
+        this.xBar = this.graph.append("line")
+            .style("stroke", "black")
+            .style("stroke-dasharray", [3,3])
+            
+        this.yBar = this.graph.append("line")
+           .style("stroke", "black")
+            .style("stroke-dasharray", [3,3])
+
+        let degreeF = '\xB0F'
+
+        svg.append("text")
+            .attr("x", -(this.height/2) - this.margin)
+            .attr("y", this.margin / 2.4 )
+            .attr("transform", "rotate(-90)")
+            .attr("text-anchor", "middle")
+            .text(`Degrees ${degreeF}`)
+
+        svg.append("text")
+            .attr('x', this.width / 2 + this.margin)
+            .attr('y', this.h - 15)
+            .attr('text-anchor', 'middle')
+            .text('Days')
+
         this.renderSpecificGraph()
     }
 
@@ -104,6 +121,35 @@ class Forecast extends React.Component{
             .attr("cy", function(d) { return yScale(d[chosen]) })
             .style("opacity", 0)
             .style("fill", "#1B1725")
+            .style("cursor", "pointer")
+            .on("mouseover", (evt, d) => {
+                this.props.setHoveredDate(d.date)
+                this.xBar
+                    .attr("x1", xScale(d.date))
+                    .attr("y1", this.height)
+                    .attr("x2", xScale(d.date))
+                    .attr("y2", 0)
+
+                this.yBar
+                    .attr("x1", 0)
+                    .attr("y1", yScale(d[chosen]))
+                    .attr("x2", this.width)
+                    .attr("y2", yScale(d[chosen]))
+            })
+            .on("mouseout", (evt, d) => {
+                this.props.setHoveredDate("")
+                this.xBar
+                    .attr("x1", 0)
+                    .attr("y1", 0)
+                    .attr("x2", 0)
+                    .attr("y2", 0)
+
+                this.yBar
+                    .attr("x1", 0)
+                    .attr("y1", 0)
+                    .attr("x2", 0)
+                    .attr("y2", 0)
+            })
             
         this.circles.transition()
             .delay(function(d, i) {
@@ -128,14 +174,20 @@ class Forecast extends React.Component{
         if(chosen !== this.state.chosen){
             this.updateLineAndCircle()
         } 
+
+        if(JSON.stringify(temperatures) !== JSON.stringify(this.props.temperatures)){
+            this.updateLineAndCircle()
+        }
+
     }
 
     render(){
         return(
             <div id="forecast">
-                <button onClick={() => {this.setState({chosen: "tempmin", color: "red"})}}>Minimum</button>
-                <button onClick={() => {this.setState({chosen: "temp", color: "green"})}}>Average</button>
-                <button onClick={() => {this.setState({chosen: "tempmax", color: "blue"})}}>Maximum</button>
+                <h2 className="name">{this.props.cityName}, {this.props.stateName}</h2>
+                <button className="min line" onClick={() => {this.setState({chosen: "tempmin", color: "red"})}}>Minimum</button>
+                <button className="avg line" onClick={() => {this.setState({chosen: "temp", color: "green"})}}>Average</button>
+                <button className="max line" onClick={() => {this.setState({chosen: "tempmax", color: "blue"})}}>Maximum</button>
             </div>
         )
     }

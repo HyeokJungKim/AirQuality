@@ -1,3 +1,6 @@
+body{
+  background-color: floralwhite;
+}
 .App {
   padding: 2rem;
 }
@@ -6,6 +9,9 @@
 article {
   display: flex;
   width: 100%;
+}
+
+#top {
   align-items: center;
 }
 
@@ -54,11 +60,16 @@ svg #marker {
   width: auto;
 }
 
-#city .name{
+.name, .loading, #heading{
   font-weight: bolder;
   font-family: Baskerville,Baskerville Old Face,Hoefler Text,Garamond,Times New Roman,serif; 
   font-size: 2.5rem;  
-  margin: 0;
+  margin: .5rem;
+}
+
+h1#heading{
+  text-align: center;
+  font-size: 5rem;
 }
 
 #city .temp{
@@ -100,16 +111,98 @@ g.tick text{
 
 
 /* Line Graph */
+article#bottom{
+  margin-top: 3rem;
+  flex-direction: row;
+  height: 80vh;
+}
 
 #forecast {
-  width: 80%;
+  width: 70%;
   text-align: center;
+  margin: 0;
+}
+
+#forecastData {
+  margin-top: 2rem;
+  width: 30%;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+li.json{
+  width: 50%;
+  margin: auto;
+  font-size: large;
+  background-color:#eee;
+  margin: 2rem;
+  outline: 10px solid #eee;
+}
+
+li.json h2{
+  text-align: center;
+}
+
+li.json span{
+  font-family: Droid Serif;
+  font-weight: bold;
+}
+
+
+li.chosen{
+  outline-color: firebrick;
+  font-size: x-large;
+}
+
+ol.forecast {
+  list-style: none;
+}
+
+button.line{
+  text-align: center;
+  cursor: pointer;
+  font-size: 1.5rem;
+  margin: 1rem;
+}
+
+button.line{
+  position: relative;
+  border: none;
+  padding: 1rem;
+  text-align: center;
+  text-decoration: none;
+  overflow: hidden;
+  color:white
+}
+
+.min{
+  background-color: red;
+}
+
+.max{
+  background-color: blue;
+}
+
+.avg{
+  background-color: green;
 }
 
 @media only screen and (max-width: 600px) {
 
   article {
     flex-direction: column;
+  }
+  
+  article#bottom{
+    flex-direction: column;
+  }
+
+  #forecastData{
+    width: 100%;
+  }
+
+  .name{
+    font-size: x-small;
   }
   
 }

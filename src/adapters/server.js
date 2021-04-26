@@ -4,8 +4,10 @@ function getCityDataAQ(lat, lon){
   
 }
 
-// function getHistory(lat, lon){
+function getHistory(lat, lon){
+     return fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}?key=${process.env.REACT_APP_VISUALCROSSING_API}&include=obs%2Cstats&elements=tempmax,tempmin,temp`)
+        .then(res => res.json())
+        
+}
 
-// }
-
-export {getCityDataAQ}
+export {getCityDataAQ, getHistory}

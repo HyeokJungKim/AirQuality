@@ -1,7 +1,7 @@
 import * as d3 from "d3";
 import React from "react";
 import geoJSON from '../../assets/geojson'
-import {getCityDataAQ} from '../../adapters/server'
+import {getCityDataAQ, getHistory} from '../../adapters/server'
 
 class USA extends React.Component{
     
@@ -70,15 +70,37 @@ class USA extends React.Component{
         let [x,y] = d3.pointer(e)
         let [lng, lat] = projection.invert(d3.pointer(e))
 
-        console.log(lng, lat)
-        // getCityDataAQ(lat, lng)
-        // .then(city => {
-        //         this.star
-        //             .attr("transform", `translate(${x}, ${y})`)
-        //             .attr("opacity", 0.9)
-        //         this.props.setCityData(city.data)
-        //     })
-        //     .catch(console.error)
+        getCityDataAQ(lat, lng)
+        .then(city => {
+                this.star
+                    .attr("transform", `translate(${x}, ${y})`)
+                    .attr("opacity", 0.9)
+                this.props.setCityData(city.data)
+            })
+            .catch(console.error)
+
+        this.props.setTemperatures([])
+        getHistory(lat, lng)
+            .then(query => {
+                let simpleTemps = query.days.map(({datetimeEpoch, tempmax, tempmin, temp}) => {
+                    let date = new Date(0)
+                    date.setUTCSeconds(datetimeEpoch)
+                
+                    let month = date.getUTCMonth() + 1
+                    let day = date.getUTCDate()
+                
+                    let formattedDate = `${month}/${day}`
+                    
+                    return {
+                        date: formattedDate,
+                        tempmax,
+                        tempmin,
+                        temp
+                    }
+                })
+                this.props.setTemperatures(simpleTemps)
+            })  
+            .catch(console.error)
 
 
     }
