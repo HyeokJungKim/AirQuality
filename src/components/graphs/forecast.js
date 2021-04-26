@@ -4,7 +4,8 @@ import * as d3 from "d3"
 class Forecast extends React.Component{
 
     state = {
-        chosen: "tempmin"
+        chosen: "tempmin",
+        color: "red"
     }
     
     componentDidMount(){
@@ -29,6 +30,9 @@ class Forecast extends React.Component{
         this.xAxis = chart.append("g")
             .attr("transform", `translate(0, ${this.height})`)
         this.yAxis = chart.append("g")
+
+        this.xBar = chart.append("g")
+        this.yBar = chart.append("g")
         
         this.renderSpecificGraph()
     }
@@ -71,7 +75,7 @@ class Forecast extends React.Component{
 
     // HELPER:
     renderLineAndPoints(xScale, yScale){
-        let {chosen} = this.state
+        let {chosen, color} = this.state
 
         this.lineFunc = d3.line()
             .x(function(d) { return xScale(d.date) })
@@ -80,12 +84,17 @@ class Forecast extends React.Component{
         this.line = this.graph.append("path")
             .datum(this.props.temperatures)
             .attr("fill", "none")
-            .attr("stroke", "#534B62")
+            .attr("stroke", color)
             .attr("stroke-linejoin", "round")
             .attr("stroke-linecap", "round")
             .attr("stroke-width", 1.5)
-            .attr("d", this.lineFunc);
-
+            .style("opacity", 0)
+            .attr("d", this.lineFunc)
+            
+        this.line.transition()
+            .delay(this.props.temperatures.length * 100)
+            .style("opacity", 1)
+            
         this.circles = this.graph.selectAll("circle")
             .data(this.props.temperatures)
             .enter()
@@ -93,9 +102,14 @@ class Forecast extends React.Component{
             .attr("r", 5)
             .attr("cx", function(d) { return xScale(d.date) })
             .attr("cy", function(d) { return yScale(d[chosen]) })
+            .style("opacity", 0)
             .style("fill", "#1B1725")
-        
-
+            
+        this.circles.transition()
+            .delay(function(d, i) {
+                return i * 100
+            })
+            .style("opacity", 1);
     }
 
     renderSpecificGraph(){
@@ -114,17 +128,14 @@ class Forecast extends React.Component{
         if(chosen !== this.state.chosen){
             this.updateLineAndCircle()
         } 
-
     }
 
-
-    
     render(){
         return(
             <div id="forecast">
-                <button onClick={() => {this.setState({chosen: "tempmin"})}}>Min</button>
-                <button onClick={() => {this.setState({chosen: "temp"})}}>Max</button>
-                <button onClick={() => {this.setState({chosen: "tempmax"})}}>Average</button>
+                <button onClick={() => {this.setState({chosen: "tempmin", color: "red"})}}>Minimum</button>
+                <button onClick={() => {this.setState({chosen: "temp", color: "green"})}}>Average</button>
+                <button onClick={() => {this.setState({chosen: "tempmax", color: "blue"})}}>Maximum</button>
             </div>
         )
     }
