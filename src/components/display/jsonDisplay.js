@@ -10,7 +10,6 @@ function JSONDisplay({temperatures, hoveredDate}){
 
    return (<aside id="forecastData">
        {temperatures.length > 0 ? list : <h2 className="loading">Loading information from the Visual Crossing API...</h2>}
-       
     </aside>)
 }
 

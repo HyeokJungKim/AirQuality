@@ -72,6 +72,11 @@ h1#heading{
   font-size: 5rem;
 }
 
+h2#subhead {
+  text-align: center;
+  font-size: 2rem;
+}
+
 #city .temp{
   font-size: 4rem;
   margin: 0;
@@ -93,7 +98,7 @@ h1#heading{
   margin: auto;
 }
 
-text.direction {
+text.direction, #subhead {
   font-family: Baskerville,Baskerville Old Face,Hoefler Text,Garamond,Times New Roman,serif; 
   font-weight: bold;
   font-size: large;

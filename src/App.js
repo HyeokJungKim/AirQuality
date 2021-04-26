@@ -18,6 +18,7 @@ function App() {
   return (
     <main className="App">
       <h1 id="heading">USA Weather</h1>
+      <h2 id="subhead">Click on the map to get started!</h2>
       <article id="top">
         <USA setCityData={setCityData} setTemperatures={setTemperatures}/>
         <CityWeather cityData={cityData} />
