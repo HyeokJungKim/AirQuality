@@ -12,7 +12,7 @@ Explor Online: https://usa-weather.netlify.app/
 ## About
 See the current weather of a city.
 
-![Current Weather](https://i.imgur.com/KXq7cvM.png)
+![Current Weather](https://i.imgur.com/6hjEOVt.png)
 
 See the forecast - the minimum, average and maximum temperatures.
 ![Forecast](https://i.imgur.com/NnNqKUK.png)
